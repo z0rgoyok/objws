@@ -15,6 +15,7 @@
  */
 @property NSDate *tokenExpirationDate;
 @property NSString *token;
+- (BOOL)isLoggedIn;
 
 - (void)authWithLogin:(NSString *)login password:(NSString *)password listener:(RequestListener)listener;
 - (void)addRequest:(SocketRequest *)request;

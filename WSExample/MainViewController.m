@@ -24,6 +24,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.txtLog.text  = [ServerAPI instance].tokenExpirationDate.description;
+    if (![ServerAPI instance].isLoggedIn) {
+        [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"]
+                           animated:YES completion:nil];
+    }
 }
 
 

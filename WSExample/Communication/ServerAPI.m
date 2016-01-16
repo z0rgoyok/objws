@@ -50,6 +50,12 @@ NSString *const c_token = @"token";
     [self.socket open];
 }
 
+- (BOOL)isLoggedIn {
+    return [ServerAPI instance].tokenExpirationDate &&
+            ([[ServerAPI instance].tokenExpirationDate compare:[NSDate date]] == NSOrderedAscending);
+}
+
+
 - (NSDate *)tokenExpirationDate {
     return [[NSUserDefaults standardUserDefaults] objectForKey:c_token_expiration];
 }
