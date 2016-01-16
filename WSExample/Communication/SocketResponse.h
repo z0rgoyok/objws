@@ -13,6 +13,6 @@
 @property NSString *type;
 @property NSDictionary *data;
 
-+ (SocketResponse *)fromJson:(NSData *)json;
++ (SocketResponse *)fromJson:(NSDictionary *)json;
 
 @end

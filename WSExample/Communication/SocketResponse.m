@@ -9,4 +9,13 @@
 @implementation SocketResponse {
 
 }
+
++ (SocketResponse *)fromJson:(NSDictionary *)json {
+    SocketResponse *response = [[SocketResponse alloc] init];
+    response.type = json[@"type"];
+    response.data = json[@"data"];
+    response.sequenceId = json[@"sequence_id"];
+    return response;
+}
+
 @end

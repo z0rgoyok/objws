@@ -7,8 +7,10 @@
 //
 
 #import "MainViewController.h"
+#import "ServerAPI.h"
 
 @interface MainViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *txtLog;
 
 @end
 
@@ -17,5 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.txtLog.text  = [ServerAPI instance].tokenExpirationDate.description;
+}
+
 
 @end

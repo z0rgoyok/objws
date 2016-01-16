@@ -119,10 +119,7 @@ NSString *const c_token = @"token";
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
     NSDictionary *response = message;
-    SocketResponse *socketResponse = [[SocketResponse alloc] init];
-    socketResponse.type = response[@"type"];
-    socketResponse.data = response[@"data"];
-    socketResponse.sequenceId = response[@"sequence_id"];
+    SocketResponse *socketResponse = [SocketResponse fromJson:message];
     SocketRequest *request = self.requestsIds[socketResponse.sequenceId];
     if (request) {
         request.listener(socketResponse, nil);
