@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ServerAPI.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    if ([ServerAPI instance].tokenExpirationDate){
+        rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
+    }
+    self.window.rootViewController = rootViewController;
     return YES;
 }
 
