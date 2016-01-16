@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     if ([ServerAPI instance].tokenExpirationDate) {
 
     }

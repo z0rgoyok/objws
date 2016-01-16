@@ -46,11 +46,6 @@ NSString *const c_token = @"token";
     }
     return self;
 }
-
-- (void)authWithLogin:(NSString *)login password:(NSString *)password {
-    //[self.socket send:<#(id)data#>];
-}
-
 - (void)connect {
     [self.socket open];
 }
@@ -71,7 +66,6 @@ NSString *const c_token = @"token";
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:c_token];
 }
 
-
 - (void)authWithLogin:(NSString *)login password:(NSString *)password listener:(RequestListener)listener {
     SocketRequest *request = [SocketRequestFabric loginRequestWithLogin:login password:password listener:listener];
     [self addRequest:request];
@@ -85,7 +79,7 @@ NSString *const c_token = @"token";
 - (void)processQueue {
     if (self.isConnected && !self.currentRequest && self.requestQueue.count > 0) {
         SocketRequest *request = self.requestQueue[0];
-        NSError *error = [self processRequest:];
+        NSError *error = [self processRequest:request];
         if (error) {
             request.listener(nil, error);
         }
