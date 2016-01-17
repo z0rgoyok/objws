@@ -132,6 +132,7 @@ NSString *const c_token = @"token";
     }
     self.currentRequest = nil;
     [self.requestQueue removeObjectAtIndex:0];
+    [self.requestsIds removeObjectForKey:socketResponse.sequenceId];
     [self processQueue];
 }
 
