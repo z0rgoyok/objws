@@ -1,10 +1,13 @@
 PODS:
+  - MBProgressHUD (0.9.2)
   - SocketRocket (0.4.2)
 
 DEPENDENCIES:
+  - MBProgressHUD
   - SocketRocket
 
 SPEC CHECKSUMS:
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
 
 COCOAPODS: 0.39.0

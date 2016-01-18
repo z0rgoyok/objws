@@ -6,6 +6,7 @@
 target 'WSExample' do
 
 pod 'SocketRocket'
+pod 'MBProgressHUD'
 
 end
 

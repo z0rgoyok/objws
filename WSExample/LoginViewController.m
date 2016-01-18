@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "ServerAPI.h"
 #import "MainViewController.h"
+#import "MBProgressHUD.h"
 
 @interface LoginViewController ()
 @property(weak, nonatomic) IBOutlet UITextField *txtLogin;
@@ -41,7 +42,12 @@
 }
 
 - (IBAction)btnLoginHandler:(id)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     [[ServerAPI instance] authWithLogin:self.txtLogin.text password:self.txtPass.text listener:^(SocketResponse *response, NSError *error) {
+
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
         if (!error) {
             if (response.data[@"api_token"]) {
                 [ServerAPI instance].token = response.data[@"api_token"];
