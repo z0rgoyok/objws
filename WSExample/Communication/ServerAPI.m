@@ -51,8 +51,14 @@ NSString *const c_token = @"token";
 }
 
 - (BOOL)isLoggedIn {
-    return [ServerAPI instance].tokenExpirationDate &&
-            ([[ServerAPI instance].tokenExpirationDate compare:[NSDate date]] == NSOrderedAscending);
+    BOOL logged =  [ServerAPI instance].tokenExpirationDate &&
+            ([[ServerAPI instance].tokenExpirationDate compare:[NSDate date]] == NSOrderedDescending);
+    if (!logged) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:c_token_expiration];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:c_token];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    return logged;
 }
 
 
@@ -62,6 +68,7 @@ NSString *const c_token = @"token";
 
 - (void)setTokenExpirationDate:(NSDate *)tokenExpirationDate {
     [[NSUserDefaults standardUserDefaults] setObject:tokenExpirationDate forKey:c_token_expiration];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSString *)token {
@@ -70,6 +77,7 @@ NSString *const c_token = @"token";
 
 - (void)setToken:(NSString *)token {
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:c_token];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)authWithLogin:(NSString *)login password:(NSString *)password listener:(RequestListener)listener {
@@ -100,11 +108,13 @@ NSString *const c_token = @"token";
     };
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
     if (!jsonData) {
         return error;
     } else {
         self.requestsIds[request.sequenceId] = request;
-        [self.socket send:jsonData];
+        [self.socket send:jsonString];
         return nil;
     }
 }

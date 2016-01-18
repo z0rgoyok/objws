@@ -10,11 +10,15 @@
 
 }
 
-+ (SocketResponse *)fromJson:(NSDictionary *)json {
++ (SocketResponse *)fromJson:(NSString *)json {
+
+    NSData *webData = [json dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:webData options:0 error:&error];
     SocketResponse *response = [[SocketResponse alloc] init];
-    response.type = json[@"type"];
-    response.data = json[@"data"];
-    response.sequenceId = json[@"sequence_id"];
+    response.type = jsonDict[@"type"];
+    response.data = jsonDict[@"data"];
+    response.sequenceId = jsonDict[@"sequence_id"];
     return response;
 }
 

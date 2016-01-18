@@ -43,7 +43,7 @@
 - (IBAction)btnLoginHandler:(id)sender {
     [[ServerAPI instance] authWithLogin:self.txtLogin.text password:self.txtPass.text listener:^(SocketResponse *response, NSError *error) {
         if (!error) {
-            if (response.data[@"token"]) {
+            if (response.data[@"api_token"]) {
                 [ServerAPI instance].token = response.data[@"api_token"];
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
